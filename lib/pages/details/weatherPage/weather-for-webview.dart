@@ -2,9 +2,12 @@
  * @file 天气详情页，由上面的webview和下面的具体数据体现组成
  * */
 import 'package:flutter/material.dart';
+import 'package:new_agriculture/pages/details/weatherPage/rain_charts.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:charts_flutter_new/flutter.dart' as charts;
+import 'developerSeries.dart';
+import 'weather_now_card.dart';
 
 class WeatherForWebview extends StatefulWidget {
   const WeatherForWebview({Key? key}) : super(key: key);
@@ -15,11 +18,13 @@ class WeatherForWebview extends StatefulWidget {
 
 class _WeatherForWebviewState extends State<WeatherForWebview> {
   late final WebViewController _controller;
+  double _opacity = 0.0;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-
+    _scrollController.addListener(_handleScroll);
     final WebViewController controller = WebViewController();
     // #enddocregion platform_features
 
@@ -80,9 +85,76 @@ class _WeatherForWebviewState extends State<WeatherForWebview> {
     _controller = controller;
   }
 
-
+  void _handleScroll() {
+    setState(() {
+      // 根据滚动位置更新透明度
+      _opacity = (_scrollController.offset / 300).clamp(0.0, 1.0);
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    // Mock柱状图数
+    final List<DeveloperSeries> data = [
+      DeveloperSeries(
+        time: "12:00",
+        developers: 10,
+        barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+      ),
+      DeveloperSeries(
+        time: "12:10",
+        developers: 14,
+        barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+      ),
+      DeveloperSeries(
+        time: "12:20",
+        developers: 20,
+        barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+      ),
+      DeveloperSeries(
+        time: "12:30",
+        developers: 40,
+        barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+      ),
+      DeveloperSeries(
+        time: "12:40",
+        developers: 30,
+        barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+      ),
+      DeveloperSeries(
+        time: "12:50",
+        developers: 10,
+        barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+      ),
+      DeveloperSeries(
+        time: "13:00",
+        developers: 3,
+        barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+      ),
+      DeveloperSeries(
+        time: "13:10",
+        developers: 1,
+        barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+      ),
+      DeveloperSeries(
+        time: "13:20",
+        developers: 4,
+        barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+      ),
+      DeveloperSeries(
+        time: "13:30",
+        developers: 0,
+        barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+      ),
+      DeveloperSeries(
+        time: "13:40",
+        developers: 0,
+        barColor: charts.ColorUtil.fromDartColor(Colors.blue),
+      ),
+    ];
+
+
+
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -97,12 +169,49 @@ class _WeatherForWebviewState extends State<WeatherForWebview> {
             height: 400,
             child: WebViewWidget(controller: _controller),
           ),
-
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 800,
-            margin: EdgeInsets.only(top: 600),
-            child: Text('具体内容部分', style: TextStyle(fontSize: 20, color: Colors.blue),),
+          Positioned(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            child: Opacity(
+              opacity: _opacity,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0xFFEEEEEE)
+                ),
+              ),
+            )
+          ),
+          ListView.builder(
+            controller: _scrollController,
+            itemCount: 2,
+            itemBuilder: (BuildContext context, int index) {
+              // TODO 先简单些，这里合适的写法应该是返回数据，根据数据类型不同，渲染不同的组件，我这里就先偷懒,先用索引做区分了
+              // TODO 还缺一个5天内的天气预报情况没有实现
+              if(index == 0) {
+                return Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.only(top: 450),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 20,bottom: 20),
+                          child: Text('两小时内分钟级降水', style: TextStyle(fontSize: 20, color: Colors.black),),
+                        ),
+                        Container(
+                          height: 250,
+                          child: RainCharts(data),
+                        )
+                      ],
+                    )
+                );
+              } else{
+                return Container(
+                  child: WeatherNowCard(),
+                );
+              }
+            }
           )
         ],
       ),

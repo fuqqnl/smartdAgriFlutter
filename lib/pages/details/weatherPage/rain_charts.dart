@@ -1,18 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:charts_flutter_new/flutter.dart' as charts;
 
-class RainCharts extends StatefulWidget {
-  const RainCharts({Key? key}) : super(key: key);
+import 'developerSeries.dart';
 
-  @override
-  State<RainCharts> createState() => _RainChartsState();
-}
+class RainCharts extends StatelessWidget {
+  List<DeveloperSeries> data;
 
-class _RainChartsState extends State<RainCharts> {
+  RainCharts(this.data, {super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    List<charts.Series<DeveloperSeries, String>> series = [
+      charts.Series(
+          id: "developers",
+          data: data,
+          domainFn: (DeveloperSeries series, _) => series.time,
+          measureFn: (DeveloperSeries series, _) => series.developers,
+          colorFn: (DeveloperSeries series, _) => series.barColor
+      )
+    ];
 
+    return charts.BarChart(
+      series,
+      animate: true,
+      defaultRenderer: charts.BarRendererConfig(
+        fillPattern: charts.FillPatternType.solid,
+      ),
     );
   }
 }
+
+
