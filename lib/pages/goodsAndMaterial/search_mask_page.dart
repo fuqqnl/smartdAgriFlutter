@@ -18,7 +18,7 @@ class _SearchMaskPage extends State<SearchMaskPage> {
       appBar: AppBar(
           backgroundColor: Color(0xffEEEEEE),
           elevation: 0,
-          leadingWidth: 50,
+          leadingWidth: 30,
           leading: IconButton(
             icon: Icon(Icons.arrow_back,color: Colors.black,),
             onPressed: () {
@@ -26,7 +26,8 @@ class _SearchMaskPage extends State<SearchMaskPage> {
               Navigator.pop(context);
             },
           ),
-          title: Center(
+          titleSpacing: 0,
+          title: Expanded(
             child: Container(
               height: 40,
               margin: EdgeInsets.symmetric(horizontal: 20),

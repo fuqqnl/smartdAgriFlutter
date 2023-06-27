@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'splash_ad.dart';
 import 'package:new_agriculture/pages/container_page.dart';
+
 class SplashWidget extends StatefulWidget {
   const SplashWidget({Key? key}) : super(key: key);
 
@@ -15,10 +16,8 @@ class _SplashWidgetState extends State<SplashWidget> {
     return Stack(
       children: [
         Offstage(
-            offstage: showAdPage,
-            child: const Expanded(
-              child: ContainerPage(),
-            )
+          offstage: showAdPage,
+          child: ContainerPage(),
         ),
         Offstage(
           offstage: !showAdPage,

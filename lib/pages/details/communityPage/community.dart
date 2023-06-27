@@ -15,10 +15,12 @@ class CommunityPage extends StatefulWidget {
   State<CommunityPage> createState() => _CommunityPageState();
 }
 
-class _CommunityPageState extends State<CommunityPage> with SingleTickerProviderStateMixin{
+class _CommunityPageState extends State<CommunityPage>
+    with SingleTickerProviderStateMixin {
   final _tabs = ['动态', '圈子'];
   late TabController _tabController;
-  late List<GlobalKey<PrimaryScrollContainerState>> scrollChildKeys = List.generate(2, (index) => GlobalKey());
+  late List<GlobalKey<PrimaryScrollContainerState>> scrollChildKeys =
+      List.generate(2, (index) => GlobalKey());
 
   @override
   void initState() {
@@ -32,68 +34,55 @@ class _CommunityPageState extends State<CommunityPage> with SingleTickerProvider
       }
     });
     super.initState();
-
   }
+
   @override
   Widget build(BuildContext context) {
     if (kDebugMode) {
       print("_CommunityPageState--build");
     }
     return Scaffold(
-
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverOverlapAbsorber(
-                handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                sliver: SliverAppBar(
-                  floating: false, // 是否漂浮
-                  pinned: true, // 是否固定
-                  primary: true,
-                  forceElevated: innerBoxIsScrolled,
-                  expandedHeight: 200, // 展开时的高度
-                  // toolbarHeight: 80,
-                  backgroundColor: Colors.lightBlueAccent,
-                  flexibleSpace: FlexibleSpaceBar(
+              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+              sliver: SliverAppBar(
+                floating: false, // 是否漂浮
+                pinned: true, // 是否固定
+                primary: true,
+                forceElevated: innerBoxIsScrolled,
+                expandedHeight: 200, // 展开时的高度
+                backgroundColor: Colors.lightBlueAccent,
+                flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.pin,
-                    background: Image.network('https://chat.openai.com/apple-touch-icon.png',fit:BoxFit.cover,)
-                  ),
-                  leadingWidth: 600,
-                  leading: Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        iconSize: 24,
-                        padding: const EdgeInsets.all(0),
-                        onPressed: () {
-                          // 处理返回按钮点击事件
-                          Navigator.pop(context);
+                    background: Image.network(
+                      'https://chat.openai.com/apple-touch-icon.png',
+                      fit: BoxFit.cover,
+                    )),
+                title: Row(
+                  children: [
+                    Expanded(
+                      child: SearchTextFieldWidget(
+                        hintText: '新的搜索框',
+                        margin: EdgeInsets.only(left: 0),
+                        onTab: () {
+                          // 处理新搜索框的点击事件
                         },
                       ),
-                      Expanded(
-                        child: SearchTextFieldWidget(
-                          hintText: '新的搜索框',
-                          margin: EdgeInsets.only(left: 0),
-                          onTab: () {
-                            // 处理新搜索框的点击事件
-                          },
-                        ),
-
-                      )
-                    ],
-                  ),
-
-                  bottom: TabBar(
-                      controller: _tabController,
-                      labelStyle: const TextStyle(fontSize: 16),
-                      labelColor: Colors.white,
-                      unselectedLabelColor: Colors.blueGrey,
-                      tabs: _tabs.map((item) => Tab(text: item)).toList()
-                  ),
+                    ),
+                  ],
                 ),
-
+                titleSpacing: 10,
+                leadingWidth: 40,
+                bottom: TabBar(
+                    controller: _tabController,
+                    labelStyle: const TextStyle(fontSize: 16),
+                    labelColor: Colors.white,
+                    unselectedLabelColor: Colors.blueGrey,
+                    tabs: _tabs.map((item) => Tab(text: item)).toList()),
+              ),
             ),
-
           ];
         },
         body: TabBarView(
@@ -102,11 +91,8 @@ class _CommunityPageState extends State<CommunityPage> with SingleTickerProvider
             int idx = _tabs.indexOf(name);
             print('每个tabBarView初始创建: $name');
             return PrimaryScrollContainer(
-                scrollChildKeys[idx],//GlobalKey
-                SliverContainer(
-                    name: name
-                )
-            );
+                scrollChildKeys[idx], //GlobalKey
+                SliverContainer(name: name));
           }).toList(),
         ),
       ),
@@ -128,7 +114,8 @@ class SliverContainer extends StatefulWidget {
   State<SliverContainer> createState() => _SliverContainerState();
 }
 
-class _SliverContainerState extends State<SliverContainer> with AutomaticKeepAliveClientMixin{
+class _SliverContainerState extends State<SliverContainer>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     print('当前view创建的名字是${widget.name}');
@@ -150,4 +137,3 @@ class _SliverContainerState extends State<SliverContainer> with AutomaticKeepAli
   // implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
-
