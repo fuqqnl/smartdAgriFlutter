@@ -10,7 +10,7 @@ import 'tabview_container.dart';
 
 class CommunityPage extends StatefulWidget {
   const CommunityPage({Key? key}) : super(key: key);
-
+  static const String routePath = 'community';
   @override
   State<CommunityPage> createState() => _CommunityPageState();
 }

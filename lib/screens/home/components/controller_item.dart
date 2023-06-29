@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 // 一些好看的图标插件
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:new_agriculture/pages/Game/Game.dart';
+import 'package:new_agriculture/pages/community/community.dart';
+import 'package:new_agriculture/pages/weather/weather.dart';
 
 class ControllerItem extends StatefulWidget {
   final dynamic item;
@@ -36,13 +39,13 @@ class _ControllerItemState extends State<ControllerItem> {
         onTap: () {
           switch (type) {
             case 'weather':
-              Navigator.pushNamed(context, '/home/weather');
+              Navigator.pushNamed(context, Weather.routePath);
               break;
             case 'community':
-              Navigator.pushNamed(context, '/home/community');
+              Navigator.pushNamed(context, CommunityPage.routePath);
               break;
             case 'game':
-              Navigator.pushNamed(context, '/home/game');
+              Navigator.pushNamed(context, Game.routePath);
               break;
           }
         },

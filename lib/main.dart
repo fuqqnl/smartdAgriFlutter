@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
           ),
         ),
         routes: {
-          '/home/weather': (context) => const Weather(),
-          '/home/community': (context) => const CommunityPage(),
-          '/home/game': (context) => const Game(),
+          Weather.routePath: (context) => const Weather(),
+          CommunityPage.routePath: (context) => const CommunityPage(),
+          Game.routePath: (context) => const Game(),
         },
         home: const Scaffold(
           body: SplashScreen(),

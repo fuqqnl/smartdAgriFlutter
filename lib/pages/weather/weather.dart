@@ -11,7 +11,7 @@ import 'weather_now_card.dart';
 
 class Weather extends StatefulWidget {
   const Weather({Key? key}) : super(key: key);
-
+  static const String routePath = 'weather';
   @override
   State<Weather> createState() => _WeatherState();
 }
