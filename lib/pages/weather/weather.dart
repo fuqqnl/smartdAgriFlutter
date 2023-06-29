@@ -2,21 +2,21 @@
  * @file 天气详情页，由上面的webview和下面的具体数据体现组成
  * */
 import 'package:flutter/material.dart';
-import 'package:new_agriculture/pages/details/weatherPage/rain_charts.dart';
+import './rain_charts.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:charts_flutter_new/flutter.dart' as charts;
 import 'developerSeries.dart';
 import 'weather_now_card.dart';
 
-class WeatherForWebview extends StatefulWidget {
-  const WeatherForWebview({Key? key}) : super(key: key);
+class Weather extends StatefulWidget {
+  const Weather({Key? key}) : super(key: key);
 
   @override
-  State<WeatherForWebview> createState() => _WeatherForWebviewState();
+  State<Weather> createState() => _WeatherState();
 }
 
-class _WeatherForWebviewState extends State<WeatherForWebview> {
+class _WeatherState extends State<Weather> {
   late final WebViewController _controller;
   double _opacity = 0.0;
   final ScrollController _scrollController = ScrollController();
@@ -91,6 +91,7 @@ class _WeatherForWebviewState extends State<WeatherForWebview> {
       _opacity = (_scrollController.offset / 300).clamp(0.0, 1.0);
     });
   }
+
   @override
   Widget build(BuildContext context) {
     // Mock柱状图数
@@ -152,9 +153,6 @@ class _WeatherForWebviewState extends State<WeatherForWebview> {
       ),
     ];
 
-
-
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -170,49 +168,48 @@ class _WeatherForWebviewState extends State<WeatherForWebview> {
             child: WebViewWidget(controller: _controller),
           ),
           Positioned(
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-            child: Opacity(
-              opacity: _opacity,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFFEEEEEE)
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0,
+              child: Opacity(
+                opacity: _opacity,
+                child: Container(
+                  decoration: BoxDecoration(color: Color(0xFFEEEEEE)),
                 ),
-              ),
-            )
-          ),
+              )),
           ListView.builder(
-            controller: _scrollController,
-            itemCount: 2,
-            itemBuilder: (BuildContext context, int index) {
-              // TODO 先简单些，这里合适的写法应该是返回数据，根据数据类型不同，渲染不同的组件，我这里就先偷懒,先用索引做区分了
-              // TODO 还缺一个5天内的天气预报情况没有实现
-              if(index == 0) {
-                return Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.only(top: 450),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 20,bottom: 20),
-                          child: Text('两小时内分钟级降水', style: TextStyle(fontSize: 20, color: Colors.black),),
-                        ),
-                        Container(
-                          height: 250,
-                          child: RainCharts(data),
-                        )
-                      ],
-                    )
-                );
-              } else{
-                return Container(
-                  child: WeatherNowCard(),
-                );
-              }
-            }
-          )
+              controller: _scrollController,
+              itemCount: 2,
+              itemBuilder: (BuildContext context, int index) {
+                // TODO 先简单些，这里合适的写法应该是返回数据，根据数据类型不同，渲染不同的组件，我这里就先偷懒,先用索引做区分了
+                // TODO 还缺一个5天内的天气预报情况没有实现
+                if (index == 0) {
+                  return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.only(top: 450),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 20),
+                            child: Text(
+                              '两小时内分钟级降水',
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.black),
+                            ),
+                          ),
+                          Container(
+                            height: 250,
+                            child: RainCharts(data),
+                          )
+                        ],
+                      ));
+                } else {
+                  return Container(
+                    child: WeatherNowCard(),
+                  );
+                }
+              })
         ],
       ),
     );

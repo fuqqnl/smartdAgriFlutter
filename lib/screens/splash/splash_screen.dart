@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'splash_ad.dart';
-import 'package:new_agriculture/pages/container_page.dart';
+import 'components/splash_ad.dart';
+import 'package:new_agriculture/screens/container_page.dart';
 
-class SplashWidget extends StatefulWidget {
-  const SplashWidget({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<SplashWidget> createState() => _SplashWidgetState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashWidgetState extends State<SplashWidget> {
+class _SplashScreenState extends State<SplashScreen> {
   bool showAdPage = true;
   @override
   Widget build(BuildContext context) {

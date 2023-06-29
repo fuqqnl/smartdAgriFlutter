@@ -4,9 +4,9 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:new_agriculture/pages/details/communityPage/search_text_field_widget.dart';
-import './PrimaryScrollContainerState.dart';
-import './tabview_container.dart';
+import './search_text_field_widget.dart';
+import 'PrimaryScrollContainerState.dart';
+import 'tabview_container.dart';
 
 class CommunityPage extends StatefulWidget {
   const CommunityPage({Key? key}) : super(key: key);

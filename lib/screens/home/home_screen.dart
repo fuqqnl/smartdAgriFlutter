@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:convert';
-import 'package:new_agriculture/pages/crops/controller_item.dart';
-import 'package:new_agriculture/pages/crops/header.dart';
-import 'package:new_agriculture/pages/crops/image_preview.dart';
+import 'package:new_agriculture/screens/home/components/controller_item.dart';
+import 'package:new_agriculture/screens/home/components/header.dart';
+import 'package:new_agriculture/screens/home/components/image_preview.dart';
 
 // 天气背景相关插件
 import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
@@ -17,14 +17,14 @@ import 'package:flutter_weather_bg_null_safety/utils/image_utils.dart';
 import 'package:flutter_weather_bg_null_safety/utils/print_utils.dart';
 import 'package:flutter_weather_bg_null_safety/utils/weather_type.dart';
 
-class Crops extends StatefulWidget {
-  const Crops({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<Crops> createState() => _CropsState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _CropsState extends State<Crops> {
+class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
   double _opacity = 1.0;
   bool _shouldHeaderHide = false;
@@ -37,7 +37,7 @@ class _CropsState extends State<Crops> {
     // 获取后台控制区域的数据
     // 假设返回的数据如下：
     String resultData =
-        '[{"icon":"mars","title":"天气","subtitle":"预测两小时内降水情况", "type": "weather"},{"icon":"bahai","title":"讨论","subtitle":"探讨经验，偶尔吹水", "type": "community"},{"icon":"baby","title":"咨询专家","subtitle":"找到适合的专家，解决生产难题", "type":"query"}]';
+        '[{"icon":"mars","title":"详细天气","subtitle":"预测两小时内降水情况", "type": "weather"},{"icon":"bahai","title":"讨论","subtitle":"探讨经验，偶尔吹水", "type": "community"},{"icon":"baby","title":"咨询专家","subtitle":"找到适合的专家，解决生产难题", "type":"query"},{"icon":"baby","title":"休闲游戏","subtitle":"放松身心", "type":"game"}]';
     decodeData = jsonDecode(resultData).cast<Map<String, dynamic>>();
   }
 

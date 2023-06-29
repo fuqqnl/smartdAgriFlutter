@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:new_agriculture/pages/crops/crops.dart';
-import 'package:new_agriculture/pages/mine/index.dart';
+import 'package:new_agriculture/screens/home/home_screen.dart';
+import 'package:new_agriculture/screens/mine/mine_screen.dart';
 
-import 'goodsAndMaterial/index.dart';
-import 'shoppingCart/index.dart';
+import 'package:new_agriculture/screens/goodsAndMaterial/goods_screen.dart';
+import 'package:new_agriculture/screens/shoppingCart/cart_screen.dart';
 
 // 真正内容
 class ContainerPage extends StatefulWidget {
@@ -21,14 +21,14 @@ class _ContainerPageState extends State<ContainerPage> {
     super.initState();
     // 有四个一级tab，分别是首页、物资、购物车、我的
     pages = [
-      // 首页（庄稼）
-      const Crops(),
+      // 首页
+      const HomeScreen(),
       // 物资
-      const GoodsAndMaterialPage(),
+      const GoodsAndMaterialScreen(),
       // 购物车
-      const ShoppingCart(),
+      const ShoppingCartScreen(),
       // 我的
-      const MinePage()
+      const MineScreen()
     ];
   }
 

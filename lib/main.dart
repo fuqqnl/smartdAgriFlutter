@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'splash/splash_widget.dart';
+import 'package:new_agriculture/pages/Game/Game.dart';
+import 'package:new_agriculture/screens/splash/splash_screen.dart';
+import 'package:new_agriculture/pages/community/community.dart';
+import 'package:new_agriculture/pages/weather/weather.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,8 +31,13 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+        routes: {
+          '/home/weather': (context) => const Weather(),
+          '/home/community': (context) => const CommunityPage(),
+          '/home/game': (context) => const Game(),
+        },
         home: const Scaffold(
-          body: SplashWidget(),
+          body: SplashScreen(),
         ));
   }
 }

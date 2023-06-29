@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../constant/constant.dart';
+import '../../../constant/constant.dart';
 
 class ImagePreview extends StatefulWidget {
   const ImagePreview({Key? key}) : super(key: key);
